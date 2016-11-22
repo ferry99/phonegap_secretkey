@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+    <!-- This is a wide open CSP declaration. To lock this down for production, see below. -->
+
+    <meta http-equiv="Content-Security-Policy" content="img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self' 'unsafe-inline' 'unsafe-eval'">
+
+    <link rel="stylesheet" type="text/css" href="css/jquery.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/mycss.css"/>
+    <link rel="stylesheet" href="css/nativeDroid2-master/vendor/jquerymobile/jquery.mobile.min.css" />
+    <link rel="stylesheet" href="css/nativeDroid2-master/vendor/waves/waves.min.css" />
+    <link rel="stylesheet" href="css/nativeDroid2-master/vendor/wow/animate.css" />
+    <link rel="stylesheet" href="css/nativeDroid2-master/css/nativedroid2.css" />
+
+    <link rel="stylesheet" href="css/nativeDroid2-master/css/nativedroid2.color.light-blue.css" />
+    <title>Data Page</title>
+
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/jquery-mobile.min.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+    <script type="text/javascript" src="js/page/core.js"></script>
+    <script type="text/javascript" src="js/page/data.js"> </script>
+    <script src="css/nativeDroid2-master/vendor/waves/waves.min.js"></script>
+    <script src="css/nativeDroid2-master/vendor/wow/wow.min.js"></script>
+    <script src="css/nativeDroid2-master/js/nativedroid2.js"></script>
+    <script src="css/nativeDroid2-master/nd2settings.js"></script>
+
+</head>
+
+<body>
+        <div data-role="page" data-dom-cache="true" id="data">
+
+            <nd2-include data-src="panel.html"></nd2-include>
+
+
+            <div data-role="header" data-position="fixed" class="wow fadeIn">
+                <a href="#leftpanel" class="ui-btn ui-btn-left wow fadeIn" data-wow-delay='0.8s'><i class="zmdi zmdi-menu"></i></a>
+                <h1 class="wow fadeIn" data-wow-delay='0.4s'>Data Categories</h1>
+            </div>
+
+
+            <div id="main-data" role="main" class="ui-content wow fadeIn" data-inset="false" data-wow-delay="0.2s">
+
+                <div class="col-xs-12 col-sm-6 col-md-4">  
+                    <div class="box">
+                        <a id="a-create" href="#" data-rel="popup" data-position-to="window" data-transition="pop" class="ui-btn ui-btn-inline ui-btn-fab ui-mini ui-btn-raised clr-secondary waves-effect waves-button waves-effect waves-button"><i class="zmdi zmdi-plus zmd-2x"></i></a>
+                        <a href="#" class="a-refresh-page ui-btn ui-btn-inline ui-btn-fab ui-mini ui-btn-raised clr-refresh waves-effect waves-button waves-effect waves-button"><i class="zmdi zmdi-refresh zmd-2x"></i></a>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-12 col-md-12 newlist">
+                    <div class="box listbox">
+                        <ul id="list-categories" class="listview" data-role="listview" data-icon="false" data-autodividers="true" data-filter="true" data-filter-placeholder="Search Category"> 
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+
+
+
+            <div data-role="popup" id="pop-option" data-theme="a">
+                <ul id="mylist" data-role="listview" data-inset="true" style="min-width:210px;" data-theme="a">
+                    <li data-icon ="plus" class="icon-left"><a href="#pop-creator" id="a-create" data-ajax="false">New Category</a></li>
+                    <li data-icon ="refresh" class="icon-left"><a id="a-refresh" href="#">Refresh</a></li>
+                    <li data-icon ="back" class="icon-left"><a href="#">Back</a></li>
+                </ul>
+            </div>
+
+
+            <div data-role="popup" id="pop-creator" >
+                <div data-role="header">
+                    <h1 class='nd2-title'>Create New Category</h1>
+                </div>
+
+                <div data-role="content">
+                    <div class="form-group">
+                        <input type="text" name="name-category" id="name-category" value="" data-clear-btn="true" placeholder="New Category Name">
+                        <i class="zmdi zmdi-book"></i>                   
+                    </div>  
+                    <div class="center-group">
+                        <a id="btn-create" href="#" data-rel="popup" data-position-to="window" data-role="button" data-inline="true" class="ui-btn ui-btn-inline ui-mini ui-btn-raised clr-primary waves-effect waves-button waves-effect waves-button">Create</a>
+                        <a id="btn-cancel" href="#" data-rel="back" data-role="button" data-inline="true" class="clr-warning ui-btn ui-btn-inline ui-mini ui-btn-raised waves-effect waves-button waves-effect waves-button">Cancel</a>
+
+                   </div>
+                </div>
+            </div>
+
+
+            <div data-role="popup" id="pop-alert">
+                <div data-role="header">
+                    <h1 class='nd-title'>Note</h1>
+                </div>
+
+                <div data-role="content" class="pop-content">
+                    <p id="p-alert"></p>
+                </div>
+            </div>  
+
+
+            <div data-role="popup" id="pop_info" >
+                <div data-role="header">
+                    <h1 class='nd-title'>Category Info</h1>
+                </div>
+
+                <div data-role="content" id="content-edit">
+                    <div class="row">
+                        <div class="form-group2 col-xs-8">
+                        </div> 
+                        <div class="col-xs-12 align-right action-content">
+                            <a id="a-edit" href="#" class="ui-btn ui-btn-inline ui-btn-fab ui-mini ui-btn-raised clr-secondary waves-effect waves-button waves-effect waves-button"><i class='zmdi zmdi-edit'></i></a>
+                            <a id="a-delete" href="#" class="ui-btn ui-btn-inline ui-btn-fab ui-mini ui-btn-raised clr-warning waves-effect waves-button waves-effect waves-button"><i class='zmdi zmdi-delete'></i></a>
+                        </div> 
+                    </div>
+                    <div class="form-group2">
+                        <label class="nd2-subhead"><i class="zmdi zmdi-book clr-zmdi-primary"></i> Category</label>
+                        <input type="text" name="name_category" id="name_category" value="" data-clear-btn="true" placeholder="Name" disabled>
+                    </div>
+                   
+                    <div class="form-group2">
+                        <div class="center-group-one">
+                            <a id="pop_save" href="#" data-role="button" data-inline="true" class="ui-btn ui-btn-inline ui-mini ui-btn-raised clr-primary waves-effect waves-button waves-effect waves-button">Save</a>
+                            <a id="pop_close" href="#" data-role="button" data-inline="true" class="clr-warning ui-btn ui-btn-inline ui-mini ui-btn-raised clr-primary waves-effect waves-button waves-effect waves-button">Close</a>
+                       </div> 
+                    </div>
+                </div>
+            </div>  
+
+
+            <div data-role="popup" id="pop_dialog">
+                    <div data-role="header">
+                        <h1 class='nd-title'>Delete Confirmation</h1>
+                    </div>
+
+                    <div data-role="content" class="pop-content">
+                        <div class="center-group">
+                            <a id="a-delete-true1" href="#" data-rel="popup" data-position-to="window" data-role="button" data-inline="true" class="ui-btn ui-btn-inline ui-mini ui-btn-raised clr-primary waves-effect waves-button waves-effect waves-button">Yes</a>
+                            <a id="a-delete-false1" href="#" data-rel="back" data-role="button" data-inline="true" class="clr-warning ui-btn ui-btn-inline ui-mini ui-btn-raised waves-effect waves-button waves-effect waves-button">No</a>
+                       </div>
+                    </div>
+                </div>        
+
+        </div>
+</body>
+
+</html>

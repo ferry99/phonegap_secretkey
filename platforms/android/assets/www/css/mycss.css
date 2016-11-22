@@ -1,0 +1,172 @@
+@import url('https://fonts.googleapis.com/css?family=Pacifico');
+
+
+#main-login{
+    position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    height: 75%;
+}
+
+
+.heading-login  , .copyright{
+    font-family: 'Pacifico', cursive;
+}
+
+.copyright{
+    color : #bbb;
+    font-weight: 400;
+    opacity: 0.7;
+}
+
+::-webkit-input-placeholder { 
+    letter-spacing: 0.1em;
+}
+
+.form-group{
+    position: relative;
+    padding: 5px 10px;
+}
+
+.form-group2{
+    position: relative;
+    padding: 5px 15px;
+}
+
+
+#main-login .form-group i{
+    position: absolute;
+    top:15px;
+    color: #03A9F4;
+}
+
+.form-group i{
+    position: absolute;
+    top: 8px;
+    color: #03A9F4;
+}
+
+.form-group .ui-input-text input , .form-group textarea {
+    padding-left: 20px;
+}
+
+
+.listview p {
+    display:inline !important;
+    padding-left: 10px;
+}
+
+.listview i {
+   width: 10px;
+}
+
+.listview .listview-action{
+    float:right !important;
+    position: absolute;
+
+}
+
+.listview .listview-action a{
+}
+
+.newlist{
+    margin-top: 20px;
+}
+
+.center-group{
+    position: relative;
+    left:0 ;
+    right:0;
+    margin: auto;
+    width: 75%;
+    padding: 10px;
+}
+
+.center-group a{
+    width: 35%;
+}
+
+.center-group-one{
+    position: relative;
+    left:0 ;
+    right:0;
+    margin: auto;
+    width: 100%;
+}
+
+.center-group-one #pop_save2 , #pop_close2 , .center-group-one #a-refresh , .center-group-one #pop_save , #pop_close{
+    width: 90%;
+    position: relative;
+}
+
+
+#data_accounts , #page-accounts , #main-data{
+    height: 100%;
+}
+
+.ui-page-theme-a .ui-btn.ui-btn-fab{
+    font-size: 15px !important;
+}
+
+.ui-page-theme-a .ui-btn.ui-btn-raised.clr-refresh{
+    background-color: #5dd25a;
+    color: rgba(255,255,255,0.85);
+}
+
+.ui-page-theme-a .ui-btn.ui-btn-raised.clr-secondary{
+    background-color: #FDD009;
+    color: rgba(255,255,255,0.85);
+}
+
+
+
+
+.clr-zmdi-primary{
+    color:#03A9F4;
+}
+
+.profile-background{
+    width: 305px !important;
+    height: 200px !important;
+    z-index: 99 !important;
+}
+
+
+.caption-panel1{
+    z-index: 999 !important;
+}
+
+.caption-panel2{
+    z-index: 999 !important;
+    -moz-transform: scale(-1, 1);
+    -webkit-transform: scale(-1, 1);
+    -o-transform: scale(-1, 1);
+    -ms-transform: scale(-1, 1);
+    transform: scale(-1, 1);
+}
+
+#main-login .ui-input-text input{
+    font-size: 18px !important;
+    letter-spacing: 0.1em;
+}
+
+.ui-input-text input , .ui-input-search input{
+    color:#585858 !important;
+    letter-spacing: 0.1em;
+}
+
+.ui-listview .ui-li-divider{
+    font-size: 19px !important;
+    font-weight: 550;
+}
+
+p{
+    font-size: 17px !important;
+}
+
+.ui-panel .ui-listview .ui-btn {
+    padding: 20px 25px;
+}
