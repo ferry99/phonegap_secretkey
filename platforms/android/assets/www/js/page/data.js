@@ -1,3 +1,9 @@
+$(document).on('pagebeforechange', '[data-role="page"]', function(){     
+    setTimeout(function(){
+        $('#loading').show();
+    },1);    
+});
+
 $(document).on('pagebeforecreate', '[data-role="page"]', function(){     
     setTimeout(function(){
         $('#loading').show();
@@ -11,9 +17,14 @@ $(document).on('pageshow', '[data-role="page"]', function(){
 });
 
 
-$(document).on('pagebeforeshow', function() {
-    
+$(document).on('pagebeforeshow', function() {   
+    setTimeout(function(){
+        $('#loading').show();
+    },1);    
+});
 
+
+$(document).on('pageshow', function() {
     $('body').on("click" , "#a-refresh" , function(){
         window.location.reload(true);
     })
@@ -39,10 +50,6 @@ $(document).on('pagebeforeshow', function() {
         }
     });
 
-});
-
-
-$( document ).ready(function() { 
     $(document)
     .ajaxStart(function(){
         setTimeout(function(){
@@ -106,10 +113,12 @@ $( document ).ready(function() {
 
             localStorage.nameCategory = nameCategory;
             localStorage.category = idCategory;
-
-            $.mobile.changePage( "data_accounts.html", {
-              transition: "pop"
-            });
+            $('#loading').show();
+            setTimeout(function () {
+                $.mobile.changePage( "data_accounts.html", {
+                    transition: "pop"
+                }); 
+            },1000)
         }).on('taphold' , function(){
             idCategory = $(this).data('id');
             nameCategory = $(this).text();

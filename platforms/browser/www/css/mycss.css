@@ -1,5 +1,9 @@
-@import url('https://fonts.googleapis.com/css?family=Pacifico');
-
+@font-face {
+    font-family: 'Pacifico';
+    font-style: normal;
+    font-weight: 700;
+    src: local('Pacifico'),url(nativeDroid2-master/fonts/Pacifico.ttf) format('truetype');
+}
 
 #main-login{
     position: absolute;
@@ -176,6 +180,7 @@ p{
 }
 
 #loading{
+    z-index: 99999;
   position: fixed;
   top: 50%;
   left: 50%;

@@ -13,7 +13,7 @@ $(document).on('pageshow', '[data-role="page"]', function(){
 
 
 
-$( document ).ready(function() {  
+$(document).on('pageshow', '[data-role="page"]', function(){   
 
 
     setInterval(function () {
