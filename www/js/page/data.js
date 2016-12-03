@@ -1,36 +1,18 @@
+$(document).on('pagebeforecreate', '[data-role="page"]', function(){     
+    setTimeout(function(){
+        $('#loading').show();
+    },1);    
+});
+
+$(document).on('pageshow', '[data-role="page"]', function(){  
+    setTimeout(function(){
+        $('#loading').hide();
+    },300);      
+});
+
 
 $(document).on('pagebeforeshow', function() {
-
-
-    // connectionStatus = false;
-
-    // setInterval(function () {
-    //     connectionStatus = navigator.onLine;
-    //     if(connectionStatus){
-    //         console.log('online')
-    //     }else{
-    //         console.log('offline');
-    //     }
-    //     // if(connectionStatus == 'offline'){
-    //     //     $('.pop-content').empty();
-    //     //     text = 'You are not connected to network'
-    //     //     bindAlertPopup('#pop-alert' , 400 , 999999 , text);
-    //     //     $centerDiv = $('<div class=center-group-one>').appendTo('.pop-content');
-    //     //     $btnRefresh = $('<a href=# data-role=button id=a-refresh>')
-    //     //         .addClass('clr-refresh ui-btn ui-btn-inline ui-mini ui-btn-raised waves-effect waves-button waves-effect waves-button')
-    //     //         .text('refresh').appendTo($centerDiv);
-    //     // }
-
-    // }, 3000);
-
-// var isOffline = 'onLine' in navigator && !navigator.onLine;
-
-// if ( isOffline ) {
-//     console.log('offline')
-// }
-// else {
-//     // internet data
-// }
+    
 
     $('body').on("click" , "#a-refresh" , function(){
         window.location.reload(true);
@@ -60,8 +42,19 @@ $(document).on('pagebeforeshow', function() {
 });
 
 
-$( document ).ready(function() {   
+$( document ).ready(function() { 
+    $(document)
+    .ajaxStart(function(){
+        setTimeout(function(){
+            $('#loading').show();
+        },300); 
+    })
 
+    .ajaxStop(function(){
+        setTimeout(function(){
+            $('#loading').hide();
+        },300); 
+    });
 
 
     var setIn = setInterval(function () {
@@ -70,8 +63,8 @@ $( document ).ready(function() {
             url: "http://myinsight.pe.hu/",
             dataType: "json",
             timeout: 4000,
+            global : false,
             success: function(data){
-
             },
             statusCode: {
                 200: function (response) {

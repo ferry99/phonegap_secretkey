@@ -1,4 +1,20 @@
-$( document ).ready(function() {
+$(document).on('pagebeforecreate', '[data-role="page"]', function(){     
+    setTimeout(function(){
+        $('#loading').show();
+    },1);    
+});
+
+
+$(document).on('pageshow', '[data-role="page"]', function(){  
+    setTimeout(function(){
+        $('#loading').hide();
+    },300);      
+});
+
+
+
+$( document ).ready(function() {  
+
 
     setInterval(function () {
         $.ajax({
@@ -32,20 +48,6 @@ $( document ).ready(function() {
     }, 4000);
 
 
-    // setInterval(function () {
-    //     connectionStatus = navigator.onLine ? 'online' : 'offline';
-    //     if(connectionStatus == 'offline'){
-    //         $('.pop-content').empty();
-    //         text = 'You are not connected to network'
-    //         bindAlertPopup('#pop-alert' , 400 , 999999 , text);
-    //         $centerDiv = $('<div class=center-group-one>').appendTo('.pop-content');
-    //         $btnRefresh = $('<a href=# data-role=button id=a-refresh>')
-    //             .addClass('clr-refresh ui-btn ui-btn-inline ui-mini ui-btn-raised waves-effect waves-button waves-effect waves-button')
-    //             .text('refresh').appendTo($centerDiv);
-    //     }
-
-    // }, 3000);
-
     $('body').on("click" , "#a-refresh" , function(){
         window.location.reload(true);
     })
@@ -54,18 +56,18 @@ $( document ).ready(function() {
         window.location.reload(true);
     })
 
-    $(document)
-        .ajaxStart(function(){
-            setTimeout(function(){
-                $.mobile.loading('show');
-            },300);  
-        })
+    // $(document)
+    //     .ajaxStart(function(){
+    //         setTimeout(function(){
+    //             $('#loading').show();
+    //         },300); 
+    //     })
 
-        .ajaxStop(function(){
-            setTimeout(function(){
-                 $.mobile.loading('hide');
-            },300); 
-        });
+    //     .ajaxStop(function(){
+    //         setTimeout(function(){
+    //             $('#loading').hide();
+    //         },300); 
+    //     });
 
     var prop = {};
     category = localStorage.category;
@@ -136,13 +138,13 @@ $( document ).ready(function() {
             async : false,
             success: function(data){
                 obj = JSON.parse(data);
+                setTimeout(function(){$('#pop_info2').popup("close"); }, 100);
                 if(obj["result"] == "Success"){
                    text = "Data Has Been Updated";
-                   bindAlertPopup('#pop-alert' , 400 , 2500 , text);  
                 }else{
                    text = "Error update";
-                   bindAlertPopup('#pop-alert' , 400 , 2500 , text); 
                 }
+               bindAlertPopup('#pop-alert' , 400 , 2500 , text); 
             }
         });
     })
@@ -237,7 +239,7 @@ $( document ).ready(function() {
 
     $('#btn-pw').on("click", function(){
         keyphrase = $('#keyphrase').val();
-        if(keyphrase == ''){  
+        if(keyphrase == 'showme'){  
             var js_obj = {operation : 'getPassword' , data : {'id_account' : prop.id_account}};
             var encoded = JSON.stringify( js_obj );
 
