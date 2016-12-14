@@ -69,17 +69,32 @@ $(document).on('pageshow', '[data-role="page"]', function(){
     //         },300); 
     //     });
 
+    $(document)
+        .ajaxError(function( event, jqxhr, settings, exception ) {
+            if ( jqxhr.status == 401 ) {
+                alert('Unauthorized');
+                window.location.href = 'index.html';
+            }
+        });
+
+    var req_url = "http://localhost/webservice1/index.php";
+
+
     var prop = {};
     category = localStorage.category;
     $('#pop_save2').hide();
     var js_obj = {operation : 'getAccounts' , data : {'name_category' : category}};
     var encoded = JSON.stringify( js_obj );
+    localJWT = window.localStorage.getItem('jwt');
 
     $.ajax({
         method: "POST",
-        url: 'http://myinsight.pe.hu/',
+        url: req_url,
         data: encoded, 
         async : false,
+        beforeSend: function(request){
+            request.setRequestHeader('authorization', 'Bearer ' + localJWT);
+        },
         success: function(data){
             obj = JSON.parse(data);
             if(obj["result"] == "no data"){
@@ -130,12 +145,16 @@ $(document).on('pageshow', '[data-role="page"]', function(){
         })
         var js_obj = {operation : 'updateAccount' , data : {'id_account' : prop.id_account , 'new_account' : objList}};
         var encoded = JSON.stringify( js_obj );
+        localJWT = window.localStorage.getItem('jwt');
 
         $.ajax({
             method: "POST",
-            url: 'http://myinsight.pe.hu/',
+            url: req_url,
             data: encoded, 
             async : false,
+            beforeSend: function(request){
+                request.setRequestHeader('authorization', 'Bearer ' + localJWT);
+             },
             success: function(data){
                 obj = JSON.parse(data);
                 setTimeout(function(){$('#pop_info2').popup("close"); }, 100);
@@ -176,12 +195,16 @@ $(document).on('pageshow', '[data-role="page"]', function(){
         $('#pop_dialog').popup("close");
         var js_obj = {operation : 'deleteAccount' , data : {'id_account' : prop.id_account}};
         var encoded = JSON.stringify( js_obj );
+        localJWT = window.localStorage.getItem('jwt');
 
         $.ajax({
             method: "POST",
-            url: 'http://myinsight.pe.hu/',
+            url: req_url,
             data: encoded, 
             async : false,
+            beforeSend: function(request){
+                request.setRequestHeader('authorization', 'Bearer ' + localJWT);
+            },
             success: function(data){
                 obj = JSON.parse(data);
                 if(obj["result"] == "Success"){
@@ -215,12 +238,16 @@ $(document).on('pageshow', '[data-role="page"]', function(){
         var js_obj = {operation : 'createAccount' , data : {'new_account': objList, 'id_category' : category}};
 
         var encoded = JSON.stringify( js_obj );
+        localJWT = window.localStorage.getItem('jwt');
 
         $.ajax({
             method : "POST",
-            url: "http://myinsight.pe.hu/",
+            url: req_url,
             data: encoded, 
             async : false,
+            beforeSend: function(request){
+                request.setRequestHeader('authorization', 'Bearer ' + localJWT);
+            },
             success : function(data){
             setTimeout(function(){$('#pop_creator').popup("close"); }, 100);
                 obj = JSON.parse(data);
@@ -242,12 +269,16 @@ $(document).on('pageshow', '[data-role="page"]', function(){
         if(keyphrase == 'showme'){  
             var js_obj = {operation : 'getPassword' , data : {'id_account' : prop.id_account}};
             var encoded = JSON.stringify( js_obj );
+            localJWT = window.localStorage.getItem('jwt');
 
             $.ajax({
                 method: "POST",
-                url: 'http://myinsight.pe.hu/',
+                url: req_url,
                 data: encoded, 
                 async : false,
+                beforeSend: function(request){
+                    request.setRequestHeader('authorization', 'Bearer ' + localJWT);
+                },
                 success: function(data){
 
                     if(data !== ""){

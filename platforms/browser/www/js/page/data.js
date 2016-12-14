@@ -1,3 +1,4 @@
+
 $(document).on('pagebeforechange', '[data-role="page"]', function(){     
     setTimeout(function(){
         $('#loading').show();
@@ -25,6 +26,29 @@ $(document).on('pagebeforeshow', function() {
 
 
 $(document).on('pageshow', function() {
+
+    $(document)
+        .ajaxStart(function(){
+            setTimeout(function(){
+                $('#loading').show();
+            },300); 
+        })
+
+        .ajaxStop(function(){
+            setTimeout(function(){
+                $('#loading').hide();
+            },300); 
+        })
+
+        .ajaxError(function( event, jqxhr, settings, exception ) {
+            if ( jqxhr.status == 401 ) {
+                alert('Unauthorized');
+                window.location.href = 'index.html';
+            }
+        });
+
+    var req_url = "http://localhost/webservice1/index.php";
+
     $('body').on("click" , "#a-refresh" , function(){
         window.location.reload(true);
     })
@@ -35,12 +59,16 @@ $(document).on('pageshow', function() {
 
     var js_obj = {operation : 'getAll' , data : {plugin: 'jquery-json', version: 2.3}};
     var encoded = JSON.stringify( js_obj );
-
+    localJWT = window.localStorage.getItem('jwt');
+           
     $.ajax({
         method: "POST",
-        url: 'http://myinsight.pe.hu/',
+        url: req_url,
         data: encoded, 
         async : false,
+        beforeSend: function(request){
+            request.setRequestHeader('authorization', 'Bearer ' + localJWT);
+        },
         success: function(data){
           if(data == ""){
                 $('<p>').text('NO DATA').appendTo('#main-data');
@@ -50,18 +78,6 @@ $(document).on('pageshow', function() {
         }
     });
 
-    $(document)
-    .ajaxStart(function(){
-        setTimeout(function(){
-            $('#loading').show();
-        },300); 
-    })
-
-    .ajaxStop(function(){
-        setTimeout(function(){
-            $('#loading').hide();
-        },300); 
-    });
 
 
     var setIn = setInterval(function () {
@@ -153,20 +169,24 @@ $(document).on('pageshow', function() {
         $('#pop_dialog').popup("close");
         var js_obj = {operation : 'deleteCategory' , data : {'id_category' : idCategory}};
         var encoded = JSON.stringify( js_obj );
+        localJWT = window.localStorage.getItem('jwt');
+
         $.ajax({
             method: "POST",
-            url: 'http://myinsight.pe.hu/',
+            url: req_url,
             data: encoded, 
             async : false,
+            beforeSend: function(request){
+                request.setRequestHeader('authorization', 'Bearer ' + localJWT);
+            },
             success: function(data){
                 obj = JSON.parse(data);
                 if(obj["result"] == "Success"){
                    text = "Category Has Been Deleted";
                 }else{
-                   text = "Error delete";
+                   text = "Error delete Or U May Have Active Account";
                 }
                bindAlertPopup('#pop-alert' , 500 , 2500 , text);  
-
             }
         });
     })
@@ -181,12 +201,16 @@ $(document).on('pageshow', function() {
         })
         var js_obj = {operation : 'updateCategory' , data : {'id_category' : idCategory , 'new_category' : objList}};
         var encoded = JSON.stringify( js_obj );
+        localJWT = window.localStorage.getItem('jwt');
 
         $.ajax({
             method: "POST",
-            url: 'http://myinsight.pe.hu/',
+            url: req_url,
             data: encoded, 
             async : false,
+            beforeSend: function(request){
+                request.setRequestHeader('authorization', 'Bearer ' + localJWT);
+            },
             success: function(data){
                 obj = JSON.parse(data);
                 console.log(obj);
@@ -244,12 +268,16 @@ $(document).on('pageshow', function() {
         nameCategory = $('#name-category').val();
         var js_obj = {operation : 'createCategory' , data : {'new_category': nameCategory, version: 2.3}};
         var encoded = JSON.stringify( js_obj );
+        localJWT = window.localStorage.getItem('jwt');
 
         $.ajax({
             method : "POST",
-            url: "http://myinsight.pe.hu/",
+            url: req_url,
             data: encoded, 
             async : false,
+            beforeSend: function(request){
+                request.setRequestHeader('authorization', 'Bearer ' + localJWT);
+            },
             success : function(data){
                 $('#name-category').val("");
                 obj = JSON.parse(data);
@@ -260,6 +288,9 @@ $(document).on('pageshow', function() {
                 }
                 $('#pop-creator').popup("close");
                 bindAlertPopup('#pop-alert' , 400 , 100000000 , text);
+                setTimeout(function(){
+                    window.location.reload();
+                },100); 
 
             }
         });

@@ -4,16 +4,31 @@ $( document ).ready(function() {
     $("#btn-login").click(function(){
        var username = $('#username').val();
        var key = $('#key').val();
-       if(username == 'root' && key == 'toor'){
-            window.location.href = "data.html";
-            // $(":mobile-pagecontainer" ).pagecontainer( "change" , "data.html", {
-            //    transition: "flip",
-            // });
-       }else{
-            alert('Wrong identity');
-            $('#username').val('');
-            $('#key').val('');
-       }
+        var js_obj = {username : username , password : key};
+        var encoded = JSON.stringify( js_obj );
+          $.ajax({
+              type: 'post',
+              url: 'http://localhost/webservice1/auth.php',
+              dataType: "json",
+              data : encoded,
+              success: function(data){
+                //console.log(data.jwt);
+                setJwt(data.jwt);
+                window.location.href = "data.html";
+              },
+              error: function(e) {
+                console.log(e);
+                alert('not authorized');
+              }
+          });
     });
+
+    function setJwt(jwt){
+        window.localStorage.setItem('jwt' , jwt)
+    };
+
+    function getJwt(){
+        return window.localStorage.getItem('jwt')
+    }
 
 });
