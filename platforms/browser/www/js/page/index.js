@@ -1,5 +1,32 @@
+$(document).on('pageshow', '[data-role="page"]', function(){  
+    setTimeout(function(){
+        $('#loading').hide();
+    },300);      
+});
+
 $( document ).ready(function() {
     console.log( "ready!" );
+
+        $(document)
+        .ajaxStart(function(){
+            setTimeout(function(){
+                $('#loading').show();
+            },300); 
+        })
+
+        .ajaxStop(function(){
+            setTimeout(function(){
+                $('#loading').hide();
+            },300); 
+        })
+
+        .ajaxError(function( event, jqxhr, settings, exception ) {
+            if ( jqxhr.status == 401 ) {
+                alert('Unauthorized');
+                window.location.href = 'index.html';
+            }
+        });
+
 
     $("#btn-login").click(function(){
        var username = $('#username').val();

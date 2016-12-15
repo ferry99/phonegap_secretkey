@@ -60,7 +60,7 @@ $(document).on('pageshow', function() {
     var js_obj = {operation : 'getAll' , data : {plugin: 'jquery-json', version: 2.3}};
     var encoded = JSON.stringify( js_obj );
     localJWT = window.localStorage.getItem('jwt');
-           
+           console.log(localJWT);
     $.ajax({
         method: "POST",
         url: req_url,
