@@ -8,7 +8,7 @@ $( document ).ready(function() {
         var encoded = JSON.stringify( js_obj );
           $.ajax({
               type: 'post',
-              url: 'http://localhost/webservice1/auth.php',
+              url: 'http://myinsight.pe.hu/auth.php',
               dataType: "json",
               data : encoded,
               success: function(data){

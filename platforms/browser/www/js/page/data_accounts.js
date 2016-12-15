@@ -77,7 +77,7 @@ $(document).on('pageshow', '[data-role="page"]', function(){
             }
         });
 
-    var req_url = "http://localhost/webservice1/index.php";
+    var req_url = "http://myinsight.pe.hu/";
 
 
     var prop = {};

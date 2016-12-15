@@ -47,7 +47,7 @@ $(document).on('pageshow', function() {
             }
         });
 
-    var req_url = "http://localhost/webservice1/index.php";
+    var req_url = "http://myinsight.pe.hu/";
 
     $('body').on("click" , "#a-refresh" , function(){
         window.location.reload(true);
