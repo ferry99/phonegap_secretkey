@@ -25,9 +25,9 @@ $(document).on('pageshow', '[data-role="page"]', function(){
             statusCode: {
                 200: function (response) {
                     console.log('from acc');
-                    setTimeout(function(){
-                        $('#pop-alert').popup("close");
-                    },1000);
+                    // setTimeout(function(){
+                    //     $('#pop-alert').popup("close");
+                    // },1000);
                 },
                 404: function (response) {
                 },
@@ -80,7 +80,7 @@ $(document).on('pageshow', '[data-role="page"]', function(){
             }
         });
 
-    var req_url = "http://myinsight.pe.hu";
+    var req_url = "http://myinsight.pe.hu/";
 
 
     var prop = {};
