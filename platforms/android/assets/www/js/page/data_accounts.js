@@ -24,7 +24,10 @@ $(document).on('pageshow', '[data-role="page"]', function(){
             global: false,
             statusCode: {
                 200: function (response) {
-                 console.log('from acc');
+                    console.log('from acc');
+                    setTimeout(function(){
+                        $('#pop-alert').popup("close");
+                    },1000);
                 },
                 404: function (response) {
                 },
@@ -77,7 +80,7 @@ $(document).on('pageshow', '[data-role="page"]', function(){
             }
         });
 
-    var req_url = "http://myinsight.pe.hu/";
+    var req_url = "http://myinsight.pe.hu";
 
 
     var prop = {};
@@ -108,15 +111,48 @@ $(document).on('pageshow', '[data-role="page"]', function(){
         prop.id_account = $(this).data("id");
     })
 
+    //ACTION DECRYPT 
+    $('.pw-secure').click(function(){
+        pw = $(this).parent().find('#password').val();
+        $('#encryptPass').val(pw);
+        $('#pop_info2').popup("close");
+        setTimeout(function(){$('#pop_decrypt').popup("open"); }, 300);
+    })
 
+    //DO DECRYPT
+    $('#a-process-true').click(function(){
+        $pwInput = $('#pop_decrypt').find('#encryptPass');
+        $keyInput = $('#pop_decrypt').find('#key');
+        pw = $pwInput.val();
+        key = $keyInput.val();
+        var js_obj = {operation : 'doDecrypt' , data : {'password' : pw , 'key' : key}};
+        var encoded = JSON.stringify( js_obj );
+        $.ajax({
+            method: "POST",
+            url: req_url,
+            data: encoded, 
+            async : false,
+            beforeSend: function(request){
+                request.setRequestHeader('authorization', 'Bearer ' + localJWT);
+            },
+            success: function(data){
+                $pwInput.val(data);
+                $keyInput.val('');
+                setTimeout(function(){
+                    $('#pop_decrypt').popup("close");
+                },1500)
+            }
+        });
+    })
 
+    //ACTION CREATE NEW ACCOUNTS
     $('#a-create2').click(function(){
         setTimeout(function(){
             $('#pop_creator').popup("open"); 
         }, 500);
     })   
 
-
+    //ACTION EDIT ACCOUNT
     $('#a-edit2').click(function(){
         $('#pop_info2 h1').text('Update Account');
         $('.action-content').css('visibility','hidden');
@@ -134,7 +170,7 @@ $(document).on('pageshow', '[data-role="page"]', function(){
         });
     })
 
-
+    //ACTION SAVE EDITED ACCOUNT
     $('#pop_save2').click(function(){
         console.log('saving...');
         objList = {};
@@ -186,11 +222,13 @@ $(document).on('pageshow', '[data-role="page"]', function(){
         });
     });
 
+    //ACTION DELETE ACOUNT
     $('#a-delete2').click(function(){
         setTimeout(function(){$('#pop_dialog').popup("open"); }, 300);
         $('#pop_info2').popup("close");
     })
 
+    //DO DELETE ACCOUNT
     $('#a-delete-true').click(function(){
         $('#pop_dialog').popup("close");
         var js_obj = {operation : 'deleteAccount' , data : {'id_account' : prop.id_account}};
@@ -226,6 +264,7 @@ $(document).on('pageshow', '[data-role="page"]', function(){
         })
     });
 
+    //DO CREATE NEW ACCOUNT
     $('#pop_creator #btn-create').click(function(){
         objList = {};
         $("#pop_creator :input").each(function(){
@@ -262,8 +301,7 @@ $(document).on('pageshow', '[data-role="page"]', function(){
         })
     })
 
-
-
+    //ACTION BYPASS INFO ACCOUNT
     $('#btn-pw').on("click", function(){
         keyphrase = $('#keyphrase').val();
         if(keyphrase == 'showme'){  

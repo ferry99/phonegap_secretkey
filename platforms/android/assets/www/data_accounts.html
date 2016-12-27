@@ -100,7 +100,7 @@
                             </div>
 
                             <div class="form-group2">
-                                <label><i class="zmdi zmdi-book clr-zmdi-primary"></i> Password</label>
+                                <label class="pw-secure"><i class="zmdi zmdi-book clr-zmdi-primary"></i> Password  <i class="zmdi zmdi-shield-security"></i></label>
                                 <input type="text" name="password" id="password" value="" data-clear-btn="true" placeholder="Password" disabled>
                             </div>
     
@@ -189,6 +189,26 @@
                     </div>
                 </div> 
 
+
+                <div data-role="popup" id="pop_decrypt">
+                    <div data-role="header">
+                        <h1 class='nd-title'>Decrypt Password</h1>
+                    </div>
+
+                    <div data-role="content" class="pop-content">
+                        <div class="form-group">
+                            <textarea rows="2" type="text" name="encryptPass" id="encryptPass" value="" data-clear-btn="true" placeholder="" disabled></textarea>
+                        </div>  
+                        <div class="form-group">
+                            <input type="password" name="key" id="key" value="" data-clear-btn="true" placeholder="Key">
+                            <i class="zmdi zmdi-shield-security"></i>  
+                        </div>  
+                        <div class="center-group">
+                            <a id="a-process-true" href="#" data-rel="popup" data-position-to="window" data-role="button" data-inline="true" class="ui-btn ui-btn-inline ui-mini ui-btn-raised clr-primary waves-effect waves-button waves-effect waves-button">Process</a>
+                            <a id="a-process-false" href="#" data-rel="back" data-role="button" data-inline="true" class="clr-warning ui-btn ui-btn-inline ui-mini ui-btn-raised waves-effect waves-button waves-effect waves-button">Cancel</a>
+                       </div>
+                    </div>
+                </div> 
 
                 <div data-role="popup" id="pop-alert">
                     <div data-role="header">
