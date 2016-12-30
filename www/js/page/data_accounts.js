@@ -154,6 +154,9 @@ $(document).on('pageshow', '[data-role="page"]', function(){
 
     //ACTION EDIT ACCOUNT
     $('#a-edit2').click(function(){
+        $('#password').focus(function(){
+            $(this).val('');
+        })
         $('#pop_info2 h1').text('Update Account');
         $('.action-content').css('visibility','hidden');
         $('#pop_close2').hide();
